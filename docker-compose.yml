@@ -1,0 +1,52 @@
+version: "3.8"
+services:    
+  mysql:
+    image: mysql
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - mynetwork
+    volumes:
+      - mysql-db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=flask-db 
+      - MYSQL_USER=flaskuser
+      - MYSQL_PASSWORD=flaskpassword
+    restart: always
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"] 
+      interval: 5s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+                                                                                                                                     
+  flask-app:
+    build:
+      context: ./
+    container_name: two-tier-flask-app
+    ports:
+      - "5000:5000"
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=flaskuser
+      - MYSQL_PASSWORD=flaskpassword
+      - MYSQL_DB=flask-db
+    networks:
+      - mynetwork
+    depends_on:
+      mysql:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:5000 || exit 1"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+networks:
+  mynetwork:
+    driver: bridge
+volumes:
+  mysql-db:
