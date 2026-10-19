@@ -2,7 +2,7 @@ pipeline{
     agent any
     
     stages{
-        stage("Code clone"){
+        stage("Code clone"){ 
             steps{
                 echo " Clone the code from Github"
                 git url: "https://github.com/Sangeeta-cmd/two-tier-flask-app.git", branch: "main"
