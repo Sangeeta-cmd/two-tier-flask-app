@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-details
+
+data:
+  MYSQL_ROOT_PASSWORD: "root"
+  MYSQL_HOST: "mysql"    # mysql service name or cluster ip
+  MYSQL_DATABASE: "Mydatabase"
+  MYSQL_USER: "flaskuser"
+  MYSQL_PASSWORD: "flaskpass"
+

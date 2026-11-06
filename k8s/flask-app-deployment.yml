@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: two-tier-app
+  labels:
+    app: two-tier-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: two-tier-app
+  template:
+    metadata:
+      labels:
+        app: two-tier-app
+    spec:
+      containers:
+        - name: two-tier-app-container
+          image: sangeeta02/flask-app:v1
+          env:
+            - name: MYSQL_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: db-details
+                  key: MYSQL_HOST
+            - name: MYSQL_USER
+              valueFrom: 
+                configMapKeyRef:
+                  name: db-details
+                  key: MYSQL_USER
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: db-details
+                  key: MYSQL_PASSWORD
+            - name: MYSQL_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: db-details
+                  key: MYSQL_DATABASE
+          ports:
+            - containerPort: 5000
+          imagePullPolicy: Always
