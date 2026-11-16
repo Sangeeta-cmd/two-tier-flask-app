@@ -47,6 +47,9 @@ spec:
 
       volumes:
         - name: mysql-data
-          hostPath: 
-            path: /home/ubuntu/mysql-data
+          persistentVolumeClaim:
+            claimName: mysql-pvc
+         # hostPath: 
+         #   path: /home/ubuntu/mysql-data
+
 

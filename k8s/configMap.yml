@@ -4,9 +4,9 @@ metadata:
   name: db-details
 
 data:
-  MYSQL_ROOT_PASSWORD: "root"
+  MYSQL_ROOT_PASSWORD: cm9vdAo=
   MYSQL_HOST: "mysql"    # mysql service name or cluster ip
   MYSQL_DATABASE: "Mydatabase"
   MYSQL_USER: "flaskuser"
-  MYSQL_PASSWORD: "flaskpass"
+  MYSQL_PASSWORD: Zmxhc2twYXNzCg==
 
